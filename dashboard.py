@@ -214,5 +214,11 @@ with col2:
             (df_filtered[y_col] >= y_range[0]) & (df_filtered[y_col] <= y_range[1])
         ]
 
-        fig = px.scatter(scatter_df, x=x_col, y=y_col, title='Scatter Plot', color_discrete_sequence=[NETFLIX_COLOR])
+        fig = px.scatter(
+            scatter_df, 
+            x=x_col,
+            y=y_col,
+            title='Scatter Plot', 
+            color_discrete_sequence=[NETFLIX_COLOR],
+            opacity=0.6)
         st.plotly_chart(fig, use_container_width=True)
