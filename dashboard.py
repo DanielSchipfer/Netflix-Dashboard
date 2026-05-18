@@ -18,7 +18,7 @@ def plot_histogram():
                 )
             )
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width='stretch')
 
 def plot_time_series():
     if 'release_year' in df.columns and len(ts_cols) > 0:
@@ -87,7 +87,7 @@ def plot_time_series():
 
                 legend=dict(x=0.01, y=0.99)
             )
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width='stretch')
 
 def plot_bar_chart(x_bar):
     if bar_cols:
@@ -112,7 +112,7 @@ def plot_bar_chart(x_bar):
                 range_y=range_y
             )
 
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width='stretch')
 
 def plot_scatter():
     if x_col and y_col:
@@ -140,7 +140,7 @@ def plot_scatter():
     fig.update_yaxes(tickformat=".2s")
     fig.update_xaxes(tickformat=".2s")
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
 
 
 @st.cache_data
