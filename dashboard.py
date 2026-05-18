@@ -96,7 +96,12 @@ def plot_bar_chart(x_bar):
                 .mean()
                 .reset_index()
             )
-            range_y = [6, 7] if bar_cols == "imdb_score" else None
+
+            min_val = bar_df[bar_cols].min()
+            max_val = bar_df[bar_cols].max()
+            pad = (max_val - min_val) * 0.10
+            range_y = [min_val - pad, max_val + pad]
+
             fig = px.bar(
                 bar_df,
                 x=x_bar,
@@ -153,10 +158,6 @@ NETFLIX_COLOR = "#E50914"
 numeric_cols = df.select_dtypes(include=np.number).columns.tolist()
 all_cols = df.columns.tolist()
 
-# Use release_year as time axis (force numeric if needed)
-if 'release_year' in df.columns:
-    df['release_year'] = pd.to_numeric(df['release_year'], errors='coerce')
-    df = df.dropna(subset=['release_year'])
 
 # SIDEBAR CONTROLS
 st.sidebar.header("Controls")
@@ -217,7 +218,7 @@ sentiment_or_age_rating = st.sidebar.radio(
 x_bar_mapping = {"Sentiment": "Bert_class", "Age certification": "age_certification"}
 x_bar = x_bar_mapping.get(sentiment_or_age_rating)
 valid_options = [col for col in numeric_cols if col != "release_year"]
-bar_cols = st.sidebar.selectbox("Variables", valid_options, key="bar", index=valid_options.index("imdb_score"))
+bar_cols = st.sidebar.selectbox("Variable", valid_options, key="bar", index=valid_options.index("imdb_score"))
 # Scatter controls
 st.sidebar.subheader("Scatter Plot")
 x_col = st.sidebar.selectbox("X variable", numeric_cols, key="x", index=numeric_cols.index("imdb_votes"))
